@@ -1,21 +1,23 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import plotly.express as px
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import seaborn as sns
-from pywaffle import Waffle
+import streamlit as st
 
-st.title("tohoop Keller Sammlung")
+
+
+
+st.title("tohoop Keller Ideen")
 
 st.write(
     "Please use the side menu to select an option (based on Basti's table), then use the sliders to design your optimal basement arrangement"
 )
 
-col2, col3 = st.columns((1, 1), gap="medium", width="stretch")
-
-status = st.sidebar.radio("Select Option:", [1, 2, 3, 4, 5, 6])
-status = status - 1
+col1, col2, col3 = st.columns((1, 3, 3), gap="medium")
+with col1:
+    status = st.radio("Select Variant:", [1, 2, 3, 4, 5, 6])
+    status = status - 1
 
 df = pd.DataFrame(
     [
@@ -81,28 +83,7 @@ with col3:
     st.write("-> Allowable square meters: ``835``")
 
 
-plotme = df.iloc[:, status]
-plotme = plotme.to_dict()
-# fig = plt.figure(
-#     FigureClass=Waffle,
-#     rows=11,
-#     columns=19,
-#     values=plotme,
-#     legend={"loc": "upper left", "bbox_to_anchor": (1.05, 1)},
-# )
-# fit = px.treemap(
-#     names=[
-#         "Abstellflaeche",
-#         "Fahrradstellflaeche",
-#         "Werkstatt",
-#         "Waschen",
-#         "Trocknen",
-#         "Food Coop",
-#         "Fairteiler",
-#         "Lastenraeder usw.",
-#         "Technik",
-#     ],
-#     values=df.iloc[:, status],
-# )
-# fig.update_layout(margin=dict(t=50, l=25, r=25, b=25), showlegend=True)
+# plotme = df.iloc[:, status]
+# plotme = plotme.to_dict()
+st.subheader("Comparison of Different Uses")
 st.bar_chart(data=df, stack=False)
